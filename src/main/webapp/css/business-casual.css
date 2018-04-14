@@ -1,0 +1,97 @@
+/*!
+ * Start Bootstrap - Business Casual (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+nav{
+    box-shadow: 0px 1px 3px gray;
+}
+
+.navbar-brand {
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.navbar-nav {
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.navbar-nav li ul li{
+    list-style: none;
+
+    display: none;
+    padding: 10px;
+
+    background: #ebebeb;
+    border: 1px solid white;
+    color: black;
+}
+.navbar-nav li ul li:first-child{
+    margin-top: 0px;
+}
+.navbar-nav li ul li:last-child{
+    margin-bottom: 15px;
+}
+.navbar-nav li ul li:hover{
+    background: white;
+}
+.navbar-nav li ul li a{
+    display: inline-block;
+    width: 100%;
+    color: black;
+}
+.navbar-nav li ul li a:hover{
+    text-decoration: none;
+}
+
+@media screen and (max-width: 767px){
+    .navbar-nav li ul li{
+        padding-left: 30px;
+        text-align: left;
+    }
+}
+@media screen and (min-width:768px) {
+    .navbar {
+        border-radius: 0;
+    }
+
+    .navbar-header {
+        display: none;
+    }
+
+    .navbar {
+        min-height: 0;
+    }
+
+    .nav>li>a {
+        padding: 20px;
+    }
+
+    .navbar-nav>li>a {
+        line-height: normal;
+    }
+
+    .navbar-nav {
+        display: table;
+        float: none;
+        margin: 0 auto;
+        table-layout: fixed;
+        font-size: 1.25em;
+
+        text-align: center;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+    .navbar-nav{
+        text-align: center;
+    }
+}

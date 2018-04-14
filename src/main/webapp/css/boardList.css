@@ -1,0 +1,40 @@
+boardList li {
+	list-style: none;
+	border-bottom: 1px solid #ebebeb;
+	padding: 5px 10px;
+}
+
+boardList li:last-child {
+	border-bottom: none;
+}
+
+boardList li>table {
+	width: 100%;
+}
+
+boardList li>table td {;
+	
+}
+
+boardList li>table td:first-child {
+	width: 3%;
+}
+
+boardList li>table td:nth-child(2) {
+	width: 50%;
+}
+
+boardList li>table td:nth-child(3) {
+	text-align: right;
+	width: 10%;
+}
+
+boardList li>table td:last-child {
+	width: 15%;
+	text-align: right;
+}
+
+.title h3, ul {
+	padding: 0px;
+	margin: 0px;
+}

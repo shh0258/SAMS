@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sams.Change_requireMapper">
+
+	<select id="selectAll" resultType="sams.Change_require">
+		SELECT *,phone_number_id phone_number_before, name member_name FROM [change_require] c left join [member] m on c.member_id = m.member_id
+	</select>
+	
+	<select id="selectByMemberId" resultType="sams.Change_require">
+		SELECT * FROM [change_require] where member_id= #{member_id}
+	</select>
+	
+	<update id="update_perChecked">
+		UPDATE [change_require] SET
+		permission = 1
+		WHERE member_id = #{member_id}
+	</update>
+
+	<insert id="insert">
+		insert change_require
+		values(#{member_id},#{phone_number},0,0);
+	</insert>
+<!-- 
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT [change_require]
+		(auto_no,dept_no,pword,phone_number_id,phone_change,batch,name,photo,position,email,addr,birth_date,w_tel,w_position,work)
+		VALUES (#{auto_no}, #{dept_no}, #{pword}, #{phone_number_id},
+		#{phone_change}, #{batch}, #{name}, #{photo}, #{position}, #{email},
+		#{addr}, #{birth_date}, #{w_tel}, #{w_position},#{work})
+	</insert>
+	
+	
+
+
+	<update id="update">
+		UPDATE [change_require] SET
+		auto_no = #{auto_no},
+		dept_no = #{dept_no},
+		pword = #{pword},
+		phone_number_id = #{phone_number_id},
+		phone_change = #{phone_change},
+		batch = #{batch},
+		name = #{name},
+		photh = #{photo},
+		position = #{position},
+		email = #{email},
+		addr = #{addr},
+		birth_date = #{birth_date},
+		w_tel= #{w_tel},
+		w_position = #{w_position},
+		work = #{work}
+		WHERE name = #{name}
+	</update>
+-->
+
+	<delete id="delete">
+		DELETE FROM [change_require] WHERE member_id = #{memeber_id}
+	</delete>
+
+</mapper>
+

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sams.MemberMapper">
+
+	<select id="selectPage" resultType="sams.Member">
+        <![CDATA[
+        SELECT *
+        FROM
+            ( SELECT *, ROW_NUMBER() OVER (ORDER BY name) pageNum
+              FROM [member]
+            ) subquery
+        WHERE
+        	pageNum > (#{currentPage} - 1) * #{pageSize} AND
+        	pageNum <= #{currentPage} * #{pageSize} AND
+        	dept_no = #{department} AND batch = #{batch}
+        ORDER BY pageNum
+        ]]>
+    </select>
+
+	<select id="selectBatch" resultType="sams.Member">		<!--기수 카운터-->
+		SELECT DISTINCT batch
+		FROM [member]
+			WHERE batch != 0
+	</select>
+	
+
+	<select id="selectByDept_no" resultType="sams.Member">
+		SELECT * FROM [member] WHERE dept_no = #{dept_no}
+	</select>
+
+	<select id="selectById" resultType="sams.Member">
+		SELECT * FROM [member] WHERE member_id = #{id}
+	</select>
+
+	<select id="selectByPhoneId" resultType="sams.Member">
+		SELECT * FROM [member] WHERE phone_number_id = #{phone_number_id}
+	</select>
+	
+	<select id="selectByPword" resultType="sams.Member">
+		SELECT * FROM [member] WHERE pword = #{pword}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT [member]
+		(auto_no,dept_no,pword,phone_number,phone_change,batch,name,photo,position,email,addr,birth_date,w_tel,w_position,work)
+		VALUES (#{auto_no}, #{dept_no}, #{pword}, #{phone_number},
+		#{phone_change}, #{batch}, #{name}, #{photo}, #{position}, #{email},
+		#{addr}, #{birth_date}, #{w_tel}, #{w_position},#{work})
+	</insert>
+
+	<update id="update">
+		UPDATE [member]
+		SET
+			position = #{position},
+			email = #{email},
+			addr = #{addr},
+			w_tel= #{w_tel},
+			w_position = #{w_position},
+			work = #{work}
+		WHERE member_id = #{member_id}
+	</update>
+	
+	<update id="updatePhoneChange">
+		UPDATE [member]
+		SET
+			phone_change = 1
+		WHERE member_id = #{member_id}
+	</update>
+	
+	<update id="updatePhoneNum">
+		UPDATE [member]
+		SET
+			phone_number_id = #{phone_number_id},
+			phone_change = 0
+		WHERE member_id = #{member_id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM [member] WHERE id = #{member_id}
+	</delete>
+
+</mapper>
+

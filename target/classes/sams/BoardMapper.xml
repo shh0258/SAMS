@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sams.BoardMapper">
+
+	<select id="toList" resultType="sams.Board">
+		EXEC dbo.boardList 1, 15, 1, 0, null
+	</select>
+	
+	<select id="selectPage" resultType="sams.Board">
+        <![CDATA[
+        SELECT *
+        FROM
+            ( SELECT *, ROW_NUMBER() OVER (ORDER BY p_no) pageNum
+              FROM [board]
+            ) subquery
+        WHERE
+        	pageNum > (#{currentPage} - 1) * #{pageSize} AND
+        	pageNum <= #{currentPage} * #{pageSize} AND
+        	dept_no= #{department} AND board_type= #{board_type}
+        ORDER BY pageNum DESC
+        ]]>
+    </select>
+	
+	<select id="selectPage_f" resultType="sams.Board">
+        <![CDATA[
+        SELECT *
+        FROM
+            ( SELECT *, ROW_NUMBER() OVER (ORDER BY p_no) pageNum
+              FROM [board]
+            ) subquery
+        WHERE
+        	pageNum > (#{currentPage} - 1) * #{pageSize} AND
+        	pageNum <= #{currentPage} * #{pageSize} AND
+        	dept_no=2 AND board_type=2
+        ORDER BY pageNum DESC
+        ]]>
+    </select>
+    <select id="selectPage_i" resultType="sams.Board">
+        <![CDATA[
+        SELECT *
+        FROM
+            ( SELECT *, ROW_NUMBER() OVER (ORDER BY p_no) pageNum
+              FROM [board]
+            ) subquery
+        WHERE
+        	pageNum > (#{currentPage} - 1) * #{pageSize} AND
+        	pageNum <= #{currentPage} * #{pageSize} AND
+        	dept_no=2 AND board_type=1
+        ORDER BY pageNum DESC
+        ]]>
+    </select>
+
+    <select id="selectCount" resultType="int">
+        SELECT COUNT(*)
+        FROM [board]
+    </select>
+	
+
+	<select id="selectById" resultType="sams.Board">
+		SELECT * FROM [board] WHERE
+		p_no = #{id}
+	</select>
+	
+	<!--
+	<select id="selectByDept_no" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE dept_no = #{dpet_no}
+	</select>
+
+	<select id="selectByBoard_type" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE board_type = #{board_type}
+	</select>
+
+	<select id="selectByTitle" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE title = #{title}
+	</select>
+
+	<select id="selectByP_contents" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE p_contents = #{p_contents}
+	</select>
+
+	<select id="selectByP_date" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE p_date = #{p_date}
+	</select>
+
+	<select id="selectByUfile" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE ufile = #{ufile}
+	</select>
+
+	<select id="selectByHits" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE hits = #{hits}
+	</select>
+
+	<select id="selectByMember_id" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE member_id = #{member_id}
+	</select>
+
+	<select id="selectByP_name" resultType="SAMS.Board">
+		SELECT * FROM [board] WHERE p_name = #{p_name}
+	</select>
+
+	-->
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT [board] (dept_no, board_type, title, p_contents, p_date, ufile,
+		hits, member_id, p_name)
+		VALUES (#{dept_no}, #{board_type}, #{title}, #{p_contents},
+		GETDATE(), #{ufile}, #{hits}, #{member_id}, #{p_name})
+	</insert>
+
+	<update id="update">
+		UPDATE [board]
+		SET
+			title = #{title},
+			p_contents = #{p_contents},
+			ufile = #{ufile},
+			hits = #{hits}
+			WHERE p_no = #{p_no}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM [board] WHERE p_no = #{p_no}
+	</delete>
+
+</mapper>
+

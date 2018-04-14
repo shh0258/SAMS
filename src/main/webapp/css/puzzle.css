@@ -1,0 +1,105 @@
+.logo{
+	position: relative;
+	top: 10px;
+	right: 10px;
+
+	display: block;
+}
+
+#puzzle ul{
+	list-style: none;
+}
+#puzzle ul li{
+	display: inline-block;
+	list-style: none;
+}
+
+#links {
+	list-style: none;
+	display: inline-block;
+
+	text-align: right;
+
+	position: absolute;
+	right: 60px;
+}
+#links a{
+	font-weight: bold;
+	font-size: 20pt;
+}
+
+#side{
+	position: absolute;
+	right: 10px;
+}
+
+.middle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.middle li{list-style: none}
+
+
+
+/* 500 이하일경우 작동하는 루틴  iphone4 등 */
+/*
+@media (max-width:500px) {  
+	#side{
+		position: fixed;
+		top:100px;
+
+	}
+	#puzzle img:nth-child(even) {
+		width: 25%;
+	}
+	#puzzle img:nth-child(odd) {
+		width: 50%;
+	}
+}*/
+
+/* 500 이상 700이하일경우 작동하는 루틴 */ 
+
+/*@media (min-width:500px) and (max-width:700px) { 
+	#puzzle img:nth-child(even) {
+		width: 50%;
+	}
+	#puzzle img:nth-child(odd) {
+		width: 70%;
+	}
+}*/
+
+/* 700 이상 900이하일경우 작동하는 루틴 */
+
+@media (min-width:500px) and (max-width:1000px) {
+	#side{
+		position: fixed;
+		top:100px;
+
+	}
+	#puzzle img:nth-child(even) {
+		width: 50%;
+	}
+	#puzzle img:nth-child(odd) {
+		width: 100%;
+	}
+
+	#puzzle ul:nth-child(2) li:nth-child(2){
+		transform: translateX(-23%);
+	}
+}
+
+/* 900 이상이면 작동하는 루틴 */
+
+@media (min-width:1000px) { 
+	#puzzle ul:nth-child(1) li:nth-child(2){
+		transform: translate(-32%,25%);
+	}
+	#puzzle ul:nth-child(2) li:nth-child(1){
+		transform: translateY(-21.5%);
+	}
+	#puzzle ul:nth-child(2) li:nth-child(2){
+		transform: translate(-22%,-28.5%);
+	}
+}

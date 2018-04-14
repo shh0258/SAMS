@@ -1,0 +1,42 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/site/*" access="ROLE_전체" />
+        <intercept-url pattern="/admin/*" access="ROLE_운영자" />
+        
+        <!-- 
+            login-page="/login.do"
+            login-processing-url="/login_processing.do"
+            authentication-failure-url="/login.do?error"
+            default-target-url="/site/main.do?department=${department}"
+        -->
+        
+        <form-login
+        	login-page="/login.do"
+            login-processing-url="/login_processing.do"
+            authentication-failure-url="/login.do?error"
+            default-target-url="/site/main.do"
+        	
+            username-parameter="phone_number_id"
+            password-parameter="pword" />
+        <logout
+            logout-url="/logout.do"
+            logout-success-url="/index.jsp"
+            invalidate-session="true" />
+    </http>
+
+    <authentication-manager>
+        <authentication-provider ref="myAuthenticationProvider"/>
+    </authentication-manager>
+
+    <beans:bean id="webexpressionHandler"
+      class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+</beans:beans>
+
